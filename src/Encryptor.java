@@ -29,7 +29,7 @@ public class Encryptor {
 
             }
         } catch (IOException e) {
-            throw new RuntimeException("Ошибка с файлами");
+            throw new RuntimeException(e + "Ошибка с файлами");
         }
     }
 
