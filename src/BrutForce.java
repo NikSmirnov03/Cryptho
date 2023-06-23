@@ -6,34 +6,51 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BrutForce {
+    private static Alphabet singleAlphabet = new Alphabet("АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя.,\":-!? ");
 
-    public static int[] brutForce(String input) throws FileNotFoundException {
+    // Функция, устанавливающая алфавит(если нам нужен не по умолчанию
+    public static void setSingleAlphabet(Alphabet singleAlphabet) {
+        BrutForce.singleAlphabet = singleAlphabet;
+    }
+
+    public static int brutForce(String input, String output) {
         // для общего алфавита
-        Alphabet singleAlphabet = new Alphabet("АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя.,\":-!? ");
         List<Character> one = singleAlphabet.makeAlphabet();
 
         int capacity = singleAlphabet.getCapacity();
-        try (BufferedReader reader = new BufferedReader(new FileReader(input))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(input));
+             BufferedReader readerOriginal = new BufferedReader(new FileReader(output))) {
             // Читаем 1 строчку для проверки на нужный ключ
             String line = reader.readLine();
+            // Читаем строку из оригинального файла
+            String origin = readerOriginal.readLine();
 
             List<String> list = new ArrayList<>(capacity);
             for (int i = 0; i < capacity; i++) {
                 list.add(brutForceOne(line, i, one));
             }
 
-            int[] keys = new int[capacity];
-            // Выводим все строчки, дабы пользователь сказал, что аж есмь истинна
+            int trueKey = 0;
+//            // Выводим все строчки, дабы пользователь сказал, что аж есмь истинна
+//            for (int i = 0; i < capacity; i++) {
+//                System.out.println("-------------------------------------");
+//                System.out.println(i + ". " + list.get(i));
+//                keys[i] = i;
+//            }
+
+            // Сравниваем массив брутфорс срок с оригинальной строкой
             for (int i = 0; i < capacity; i++) {
-                System.out.println("-------------------------------------");
-                System.out.println(i + ". " + list.get(i));
-                keys[i] = i;
+                // Если совпадает, выдаем ключ, прерываем цикл
+                if (list.get(i).equals(origin)) {
+                    trueKey = i;
+                    break;
+                }
             }
 
-            return keys;
+            return trueKey;
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Ошибка с файлами");
         }
     }
 
