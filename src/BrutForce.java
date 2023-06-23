@@ -6,10 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BrutForce {
+    private static Alphabet singleAlphabet = new Alphabet("АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя.,\":-!? ");
 
-    public static int brutForce(String input, String output) throws FileNotFoundException {
+    // Функция, устанавливающая алфавит(если нам нужен не по умолчанию
+    public static void setSingleAlphabet(Alphabet singleAlphabet) {
+        BrutForce.singleAlphabet = singleAlphabet;
+    }
+
+    public static int brutForce(String input, String output) {
         // для общего алфавита
-        Alphabet singleAlphabet = new Alphabet("АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя.,\":-!? ");
         List<Character> one = singleAlphabet.makeAlphabet();
 
         int capacity = singleAlphabet.getCapacity();
@@ -45,7 +50,7 @@ public class BrutForce {
             return trueKey;
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Ошибка с файлами");
         }
     }
 
