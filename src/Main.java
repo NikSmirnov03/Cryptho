@@ -1,8 +1,3 @@
-import java.io.*;
-import java.nio.channels.FileChannel;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -32,9 +27,7 @@ public class Main {
                 case 2:
                     System.out.println("Вы выбрали пункт 2");
                     // Брутфорсим, получаем массив ключей
-                    int[] keys = BrutForce.brutForce(".\\src\\encrypto.txt");    // ToDo: решить нужно ли делать проверку, что в диапазоне keys
-                    System.out.println("Выберите правильный вариант(Введите цифру)");
-                    int trueKey = sc.nextInt();
+                    int trueKey = BrutForce.brutForce(".\\src\\encrypto.txt", ".\\src\\original.txt");
                     Encryptor.encryption(".\\src\\encrypto.txt",
                             ".\\src\\decryptoBrutforce.txt", trueKey);
                     break;
