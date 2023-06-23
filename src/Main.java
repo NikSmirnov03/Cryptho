@@ -15,24 +15,39 @@ public class Main {
             switch (punkt) {
                 case 1 -> {
                     System.out.println("Вы выбрали пункт 1");
+                    System.out.println("Введите путь к файлу оригиналу: ");
+                    sc.nextLine();
+                    String origin = sc.nextLine();
+                    System.out.println("Введите путь к файлу, который будет зашифрован: ");
+                    String encrypt = sc.nextLine();
+                    System.out.println("Введите путь к файлу, где будет расшифрованный текст: ");
+                    String decrypt = sc.nextLine();
                     System.out.println("Введите ключ");
                     int key = sc.nextInt();
                     // Шифруем
-                    Encryptor.encryption(".\\src\\original.txt",
-                            ".\\src\\encrypto.txt", key);
+                    Encryptor.encryption(origin,
+                            encrypt, key);
                     // Дешифруем
-                    Encryptor.encryption(".\\src\\encrypto.txt",
-                            ".\\src\\decrypto.txt", -key);
-                    System.out.println("Готово, имя расшифрованного файла decrypto.txt, зашифрованного encrypto.txt");
+                    Encryptor.encryption(encrypt,
+                            decrypt, -key);
+                    System.out.println("Готово, имя расшифрованного файла " + decrypt +
+                            ", зашифрованного "+ encrypt);
                 }
                 case 2 -> {
                     System.out.println("Вы выбрали пункт 2");
+                    sc.nextLine();
+                    System.out.println("Введите путь к файлу оригиналу: ");
+                    String origin = sc.nextLine();
+                    System.out.println("Введите путь к зашифрованному файлу: ");
+                    String encrypt = sc.nextLine();
+                    System.out.println("Введите путь к файлу, где будет расшифрованный текст: ");
+                    String decrypt = sc.nextLine();
                     // Брутфорсим, получаем ключ
-                    int trueKey = BrutForce.brutForce(".\\src\\encrypto.txt", ".\\src\\original.txt");
+                    int trueKey = BrutForce.brutForce(encrypt, origin);
                     // Дешифруем, полученным ключом файл
-                    Encryptor.encryption(".\\src\\encrypto.txt",
-                            ".\\src\\decryptoBrutforce.txt", trueKey);
-                    System.out.println("Готово, имя расшифрованного файла decryptoBrutforce.txt");
+                    Encryptor.encryption(encrypt,
+                            decrypt, trueKey);
+                    System.out.println("Готово, имя расшифрованного файла " + decrypt);
                 }
                 default -> System.out.println("Такого пункта нету");
             }
